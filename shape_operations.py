@@ -4,6 +4,10 @@ import numpy as np
 
 class shape_operations:
 
+    '''
+    Classe responsável por realizar operações relacionadas a formas, incluindo detecção, identificação e exibição dos elementos geométricos presentes na imagem.
+    '''
+
     def __init__(self):
         pass
 
