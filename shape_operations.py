@@ -15,11 +15,11 @@ class shape_operations:
     def findContour(self, contours, img):
     ### Metodo responsável por determinar a forma geométrica com base no contorno já encontrado ###
 
-        min_area = 1000
+        min_area = 3000
 
         for contour in contours:
 
-            approx = cv2.approxPolyDP(contour, 0.01*cv2.arcLength(contour, True), True)
+            approx = cv2.approxPolyDP(contour, 0.03*cv2.arcLength(contour, True), True)
 
             name_contour = None
             color = None
@@ -27,16 +27,19 @@ class shape_operations:
             if (len(approx) == 3 and cv2.contourArea(contour) >= min_area and cv2.isContourConvex(approx)):
                 name_contour = "Triangle"
                 color = (0, 255, 0) # verde
-                #print(cv2.isContourConvex(contour))
             
             elif (len(approx) == 6 and cv2.contourArea(contour) >= min_area and cv2.isContourConvex(approx)):
-                print(len(approx))
                 name_contour = "Hexagon"
                 color = (0, 0, 255) # vermelho
             
-            # elif (len(approx) == 10 and cv2.contourArea(contour) >= min_area):
-            #     name_contour = "Star"
-            #     color = (255, 0, 0) # azul
+            elif (len(approx) == 10 and cv2.contourArea(contour) >= min_area) and (not cv2.isContourConvex(approx)):
+                hull = cv2.convexHull(contour)
+                approx_hull = cv2.approxPolyDP(hull, 0.01*cv2.arcLength(hull, True), True)
+
+                if (len(approx_hull) == 5):
+                    #cv2.drawContours(img, [hull], 0, (0,0,255), 2)
+                    name_contour = "Star"
+                    color = (255, 0, 0) # azul
             
             if name_contour in ["Triangle", "Hexagon", "Star"]:
                 self.draw_contour(name_contour, color, approx, img, contour)

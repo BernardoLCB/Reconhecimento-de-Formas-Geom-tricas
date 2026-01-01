@@ -55,7 +55,7 @@ choice = 0
 
 if choice == 0:
     #cap = cv2.VideoCapture(0)
-    cap = cv2.VideoCapture(caminho_videos+"/14.mp4")
+    cap = cv2.VideoCapture(caminho_videos+"/13.mp4")
     frame_time = 50
 else:
     frame_time = 100000
@@ -108,7 +108,7 @@ while (True):
 
     #----------------------BINARIZANDO A IMAGEM PARA QUE POSSAMOS UTILIZAR O MÉTODO QUE ENCONTRA OS CONTORNOS-------------------#
 
-    sorce_image_binarized = cv2.adaptiveThreshold(sorce_image_morphology_operations, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 15, 5) 
+    sorce_image_binarized = cv2.adaptiveThreshold(sorce_image_morphology_operations, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 15, 5) 
 
     #----------------------ENCONTRANDO OS CONTORNOS NA IMAGEM BINARIZADA-------------------------------#
 
