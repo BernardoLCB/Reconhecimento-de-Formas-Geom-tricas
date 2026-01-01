@@ -58,18 +58,20 @@ if choice == 0:
     cap = cv2.VideoCapture(caminho_videos+"/14.mp4")
     frame_time = 50
 else:
-    frame_time = 10000
+    frame_time = 100000
 
 #=====================================================================#
 
 
 #=====================================================================#
+
+paused = False
 
 print(f"a sua escolha foi de {choice}")
 
 while (True):
     
-    if choice == 0:
+    if choice == 0 and not paused:
         ret, sorce_image = cap.read()
 
         if not ret:
@@ -132,5 +134,14 @@ while (True):
 
     cv2.imshow("IMAGEM-BINARIZADA / IMAGEM-CONTORNADA", img_stack)
     
-    
-    cv2.waitKey(frame_time) 
+
+    key = cv2.waitKey(frame_time) & 0xFF
+
+    if key == ord(' '):
+        paused = not paused
+
+    elif key == ord('q'):
+        break
+
+cap.release()
+cv2.destroyAllWindows() 
